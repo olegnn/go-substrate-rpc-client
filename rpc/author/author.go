@@ -16,7 +16,7 @@
 
 package author
 
-import "github.com/snowfork/go-substrate-rpc-client/v3/client"
+import "github.com/snowfork/go-substrate-rpc-client/v4/client"
 
 // Author exposes methods for authoring of network items
 type Author struct {

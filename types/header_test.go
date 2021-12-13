@@ -19,7 +19,7 @@ package types_test
 import (
 	"testing"
 
-	. "github.com/snowfork/go-substrate-rpc-client/v3/types"
+	. "github.com/snowfork/go-substrate-rpc-client/v4/types"
 )
 
 var exampleHeader = Header{

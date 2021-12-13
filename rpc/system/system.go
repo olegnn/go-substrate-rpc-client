@@ -17,7 +17,7 @@
 package system
 
 import (
-	"github.com/snowfork/go-substrate-rpc-client/v3/client"
+	"github.com/snowfork/go-substrate-rpc-client/v4/client"
 )
 
 // System exposes methods for retrieval of system data

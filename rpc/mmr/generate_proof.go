@@ -1,8 +1,8 @@
 package mmr
 
 import (
-	"github.com/snowfork/go-substrate-rpc-client/v3/client"
-	"github.com/snowfork/go-substrate-rpc-client/v3/types"
+	"github.com/snowfork/go-substrate-rpc-client/v4/client"
+	"github.com/snowfork/go-substrate-rpc-client/v4/types"
 )
 
 // GenerateProof retrieves a MMR proof and leaf for the specified leave index, at the given blockHash (useful to query a

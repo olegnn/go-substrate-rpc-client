@@ -21,9 +21,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/snowfork/go-substrate-rpc-client/v3/client"
-	"github.com/snowfork/go-substrate-rpc-client/v3/rpcmocksrv"
-	"github.com/snowfork/go-substrate-rpc-client/v3/types"
+	"github.com/snowfork/go-substrate-rpc-client/v4/client"
+	"github.com/snowfork/go-substrate-rpc-client/v4/rpcmocksrv"
+	"github.com/snowfork/go-substrate-rpc-client/v4/types"
 )
 
 var state *State

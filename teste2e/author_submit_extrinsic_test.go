@@ -19,10 +19,10 @@ package teste2e
 import (
 	"testing"
 
-	gsrpc "github.com/snowfork/go-substrate-rpc-client/v3"
-	"github.com/snowfork/go-substrate-rpc-client/v3/config"
-	"github.com/snowfork/go-substrate-rpc-client/v3/signature"
-	"github.com/snowfork/go-substrate-rpc-client/v3/types"
+	gsrpc "github.com/snowfork/go-substrate-rpc-client/v4"
+	"github.com/snowfork/go-substrate-rpc-client/v4/config"
+	"github.com/snowfork/go-substrate-rpc-client/v4/signature"
+	"github.com/snowfork/go-substrate-rpc-client/v4/types"
 	"github.com/stretchr/testify/assert"
 )
 

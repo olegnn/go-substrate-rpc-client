@@ -20,8 +20,8 @@ import (
 	"crypto/rand"
 	"testing"
 
-	. "github.com/snowfork/go-substrate-rpc-client/v3/signature"
-	"github.com/snowfork/go-substrate-rpc-client/v3/types"
+	. "github.com/snowfork/go-substrate-rpc-client/v4/signature"
+	"github.com/snowfork/go-substrate-rpc-client/v4/types"
 	"github.com/stretchr/testify/assert"
 )
 

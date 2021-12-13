@@ -18,8 +18,10 @@ package types
 
 import (
 	"fmt"
+	"hash"
 
-	"github.com/snowfork/go-substrate-rpc-client/v3/scale"
+	"github.com/snowfork/go-substrate-rpc-client/v4/scale"
+	"github.com/snowfork/go-substrate-rpc-client/v4/xxhash"
 )
 
 const MagicNumber uint32 = 0x6174656d
@@ -45,6 +47,20 @@ type Metadata struct {
 	AsMetadataV12 MetadataV12
 	IsMetadataV13 bool
 	AsMetadataV13 MetadataV13
+	AsMetadataV14 MetadataV14
+}
+
+type StorageEntryMetadata interface {
+	// Check whether the entry is a plain type
+	IsPlain() bool
+	// Get the hasher to store the plain type
+	Hasher() (hash.Hash, error)
+
+	// Check whether the entry is a map type.
+	// Since v14, a Map is the union of the old Map, DoubleMap, and NMap.
+	IsMap() bool
+	// Get the hashers of the map keys. It should contain one hash per key.
+	Hashers() ([]hash.Hash, error)
 }
 
 func NewMetadataV4() *Metadata {
@@ -91,6 +107,13 @@ func NewMetadataV13() *Metadata {
 	}
 }
 
+func NewMetadataV14() *Metadata {
+	return &Metadata{
+		Version:       14,
+		AsMetadataV14: MetadataV14{Pallets: make([]PalletMetadataV14, 0)},
+	}
+}
+
 func (m *Metadata) Decode(decoder scale.Decoder) error {
 	err := decoder.Decode(&m.MagicNumber)
 	if err != nil {
@@ -130,6 +153,8 @@ func (m *Metadata) Decode(decoder scale.Decoder) error {
 	case 13:
 		m.IsMetadataV13 = true
 		err = decoder.Decode(&m.AsMetadataV13)
+	case 14:
+		err = decoder.Decode(&m.AsMetadataV14)
 	default:
 		return fmt.Errorf("unsupported metadata version %v", m.Version)
 	}
@@ -165,6 +190,8 @@ func (m Metadata) Encode(encoder scale.Encoder) error {
 		err = encoder.Encode(m.AsMetadataV12)
 	case 13:
 		err = encoder.Encode(m.AsMetadataV13)
+	case 14:
+		err = encoder.Encode(m.AsMetadataV14)
 	default:
 		return fmt.Errorf("unsupported metadata version %v", m.Version)
 	}
@@ -175,116 +202,136 @@ func (m Metadata) Encode(encoder scale.Encoder) error {
 func (m *Metadata) FindConstantValue(module string, constantName string) ([]byte, error) {
 	txtModule := Text(module)
 	txtConstantName := Text(constantName)
-	switch {
-	case m.IsMetadataV4:
+	switch m.Version {
+	case 4:
 		return m.AsMetadataV4.FindConstantValue(txtModule, txtConstantName)
-	case m.IsMetadataV7:
+	case 7:
 		return m.AsMetadataV7.FindConstantValue(txtModule, txtConstantName)
-	case m.IsMetadataV8:
+	case 8:
 		return m.AsMetadataV8.FindConstantValue(txtModule, txtConstantName)
-	case m.IsMetadataV9:
+	case 9:
 		return m.AsMetadataV9.FindConstantValue(txtModule, txtConstantName)
-	case m.IsMetadataV10:
+	case 10:
 		return m.AsMetadataV10.FindConstantValue(txtModule, txtConstantName)
-	case m.IsMetadataV11:
+	case 11:
 		return m.AsMetadataV11.FindConstantValue(txtModule, txtConstantName)
-	case m.IsMetadataV12:
+	case 12:
 		return m.AsMetadataV12.FindConstantValue(txtModule, txtConstantName)
-	case m.IsMetadataV13:
+	case 13:
 		return m.AsMetadataV13.FindConstantValue(txtModule, txtConstantName)
+	case 14:
+		return m.AsMetadataV14.FindConstantValue(txtModule, txtConstantName)
 	default:
 		return nil, fmt.Errorf("unsupported metadata version")
 	}
 }
 
 func (m *Metadata) FindCallIndex(call string) (CallIndex, error) {
-	switch {
-	case m.IsMetadataV4:
+	switch m.Version {
+	case 4:
 		return m.AsMetadataV4.FindCallIndex(call)
-	case m.IsMetadataV7:
+	case 7:
 		return m.AsMetadataV7.FindCallIndex(call)
-	case m.IsMetadataV8:
+	case 8:
 		return m.AsMetadataV8.FindCallIndex(call)
-	case m.IsMetadataV9:
+	case 9:
 		return m.AsMetadataV9.FindCallIndex(call)
-	case m.IsMetadataV10:
+	case 10:
 		return m.AsMetadataV10.FindCallIndex(call)
-	case m.IsMetadataV11:
+	case 11:
 		return m.AsMetadataV11.FindCallIndex(call)
-	case m.IsMetadataV12:
+	case 12:
 		return m.AsMetadataV12.FindCallIndex(call)
-	case m.IsMetadataV13:
+	case 13:
 		return m.AsMetadataV13.FindCallIndex(call)
+	case 14:
+		return m.AsMetadataV14.FindCallIndex(call)
 	default:
 		return CallIndex{}, fmt.Errorf("unsupported metadata version")
 	}
 }
 
 func (m *Metadata) FindEventNamesForEventID(eventID EventID) (Text, Text, error) {
-	switch {
-	case m.IsMetadataV4:
+	switch m.Version {
+	case 4:
 		return m.AsMetadataV4.FindEventNamesForEventID(eventID)
-	case m.IsMetadataV7:
+	case 7:
 		return m.AsMetadataV7.FindEventNamesForEventID(eventID)
-	case m.IsMetadataV8:
+	case 8:
 		return m.AsMetadataV8.FindEventNamesForEventID(eventID)
-	case m.IsMetadataV9:
+	case 9:
 		return m.AsMetadataV9.FindEventNamesForEventID(eventID)
-	case m.IsMetadataV10:
+	case 10:
 		return m.AsMetadataV10.FindEventNamesForEventID(eventID)
-	case m.IsMetadataV11:
+	case 11:
 		return m.AsMetadataV11.FindEventNamesForEventID(eventID)
-	case m.IsMetadataV12:
+	case 12:
 		return m.AsMetadataV12.FindEventNamesForEventID(eventID)
-	case m.IsMetadataV13:
+	case 13:
 		return m.AsMetadataV13.FindEventNamesForEventID(eventID)
+	case 14:
+		return m.AsMetadataV14.FindEventNamesForEventID(eventID)
 	default:
 		return "", "", fmt.Errorf("unsupported metadata version")
 	}
 }
 
 func (m *Metadata) FindStorageEntryMetadata(module string, fn string) (StorageEntryMetadata, error) {
-	switch {
-	case m.IsMetadataV4:
+	switch m.Version {
+	case 4:
 		return m.AsMetadataV4.FindStorageEntryMetadata(module, fn)
-	case m.IsMetadataV7:
+	case 7:
 		return m.AsMetadataV7.FindStorageEntryMetadata(module, fn)
-	case m.IsMetadataV8:
+	case 8:
 		return m.AsMetadataV8.FindStorageEntryMetadata(module, fn)
-	case m.IsMetadataV9:
+	case 9:
 		return m.AsMetadataV9.FindStorageEntryMetadata(module, fn)
-	case m.IsMetadataV10:
+	case 10:
 		return m.AsMetadataV10.FindStorageEntryMetadata(module, fn)
-	case m.IsMetadataV11:
+	case 11:
 		return m.AsMetadataV11.FindStorageEntryMetadata(module, fn)
-	case m.IsMetadataV12:
+	case 12:
 		return m.AsMetadataV12.FindStorageEntryMetadata(module, fn)
-	case m.IsMetadataV13:
+	case 13:
 		return m.AsMetadataV13.FindStorageEntryMetadata(module, fn)
+	case 14:
+		return m.AsMetadataV14.FindStorageEntryMetadata(module, fn)
 	default:
 		return nil, fmt.Errorf("unsupported metadata version")
 	}
 }
 
 func (m *Metadata) ExistsModuleMetadata(module string) bool {
-	switch {
-	case m.IsMetadataV4:
+	switch m.Version {
+	case 4:
 		return m.AsMetadataV4.ExistsModuleMetadata(module)
-	case m.IsMetadataV7:
+	case 7:
 		return m.AsMetadataV7.ExistsModuleMetadata(module)
-	case m.IsMetadataV8:
+	case 8:
 		return m.AsMetadataV8.ExistsModuleMetadata(module)
-	case m.IsMetadataV9:
+	case 9:
 		return m.AsMetadataV9.ExistsModuleMetadata(module)
-	case m.IsMetadataV10:
+	case 10:
 		return m.AsMetadataV10.ExistsModuleMetadata(module)
-	case m.IsMetadataV11:
+	case 11:
 		return m.AsMetadataV11.ExistsModuleMetadata(module)
-	case m.IsMetadataV12:
+	case 12:
 		return m.AsMetadataV12.ExistsModuleMetadata(module)
-	case m.IsMetadataV13:
+	case 13:
 		return m.AsMetadataV13.ExistsModuleMetadata(module)
+	case 14:
+		return m.AsMetadataV14.ExistsModuleMetadata(module)
 	default:
 		return false
 	}
+}
+
+// Default implementation of Hasher() for a Storage entry
+// It fails when called if entry is not a plain type.
+func DefaultPlainHasher(entry StorageEntryMetadata) (hash.Hash, error) {
+	if entry.IsPlain() {
+		return xxhash.New128(nil), nil
+	}
+
+	return nil, fmt.Errorf("Hasher() is only to be called on a Plain entry")
 }

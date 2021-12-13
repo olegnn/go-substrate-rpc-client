@@ -17,7 +17,7 @@
 package types
 
 import (
-	"github.com/snowfork/go-substrate-rpc-client/v3/scale"
+	"github.com/snowfork/go-substrate-rpc-client/v4/scale"
 )
 
 // Origin is an internal-only value that will be ignored when encoding/decoding

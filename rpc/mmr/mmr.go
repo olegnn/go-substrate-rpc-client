@@ -1,6 +1,6 @@
 package mmr
 
-import "github.com/snowfork/go-substrate-rpc-client/v3/client"
+import "github.com/snowfork/go-substrate-rpc-client/v4/client"
 
 // MMR exposes methods for retrieval of MMR data
 type MMR struct {

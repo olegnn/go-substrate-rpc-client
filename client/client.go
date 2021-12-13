@@ -20,9 +20,9 @@ import (
 	"context"
 	"log"
 
-	"github.com/snowfork/go-substrate-rpc-client/v3/config"
-	gethrpc "github.com/snowfork/go-substrate-rpc-client/v3/gethrpc"
-	"github.com/snowfork/go-substrate-rpc-client/v3/types"
+	"github.com/snowfork/go-substrate-rpc-client/v4/config"
+	gethrpc "github.com/snowfork/go-substrate-rpc-client/v4/gethrpc"
+	"github.com/snowfork/go-substrate-rpc-client/v4/types"
 )
 
 type Client interface {
