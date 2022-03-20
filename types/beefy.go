@@ -43,7 +43,7 @@ type SignedCommitment struct {
 type CompactSignedCommitment struct {
 	Commitment        Commitment
 	SignaturesFrom    []byte
-	ValidatorSetLen   U32
+	ValidatorSetLen   uint32
 	SignaturesCompact []BeefySignature
 }
 
@@ -66,12 +66,10 @@ func NewOptionBeefySignatureEmpty() OptionBeefySignature {
 	return OptionBeefySignature{option: option{false}}
 }
 
-// Encode ...
 func (o OptionBeefySignature) Encode(encoder scale.Encoder) error {
 	return encoder.EncodeOption(o.hasValue, o.value)
 }
 
-// Decode ...
 func (o *OptionBeefySignature) Decode(decoder scale.Decoder) error {
 	return decoder.DecodeOption(&o.hasValue, &o.value)
 }
@@ -93,9 +91,9 @@ func (o OptionBeefySignature) Unwrap() (ok bool, value BeefySignature) {
 	return o.hasValue, o.value
 }
 
+// bits are packed into chunks of this size
 const containerBitSize = 8
 
-// Decode ...
 func (s *SignedCommitment) Decode(decoder scale.Decoder) error {
 
 	compact := CompactSignedCommitment{}
@@ -133,7 +131,6 @@ func (s *SignedCommitment) Decode(decoder scale.Decoder) error {
 	return nil
 }
 
-// Encode ...
 func (s SignedCommitment) Encode(encoder scale.Encoder) error {
 	var compact CompactSignedCommitment
 	var bits []byte
@@ -167,7 +164,7 @@ func (s SignedCommitment) Encode(encoder scale.Encoder) error {
 	compact.Commitment = s.Commitment
 	compact.SignaturesCompact = signaturesCompact
 	compact.SignaturesFrom = signaturesFrom
-	compact.ValidatorSetLen = U32(validatorSetLen)
+	compact.ValidatorSetLen = uint32(validatorSetLen)
 
 	return encoder.Encode(compact)
 }
