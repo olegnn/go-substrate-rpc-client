@@ -16,7 +16,9 @@
 
 package types
 
-import "github.com/snowfork/go-substrate-rpc-client/v4/scale"
+import (
+	"github.com/snowfork/go-substrate-rpc-client/v4/scale"
+)
 
 // PayloadItem ...
 type PayloadItem struct {
@@ -27,8 +29,8 @@ type PayloadItem struct {
 // Commitment is a beefy commitment
 type Commitment struct {
 	Payload        []PayloadItem
-	BlockNumber    BlockNumber
-	ValidatorSetID U64
+	BlockNumber    uint32
+	ValidatorSetID uint64
 }
 
 // SignedCommitment is a beefy commitment with optional signatures from the set of validators
@@ -95,7 +97,8 @@ const containerBitSize = 8
 
 // Decode ...
 func (s *SignedCommitment) Decode(decoder scale.Decoder) error {
-	var compact CompactSignedCommitment
+
+	compact := CompactSignedCommitment{}
 
 	err := decoder.Decode(&compact)
 	if err != nil {

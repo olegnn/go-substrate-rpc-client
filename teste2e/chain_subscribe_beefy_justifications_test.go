@@ -22,8 +22,6 @@ import (
 	"testing"
 	"time"
 
-	gsrpc "github.com/snowfork/go-substrate-rpc-client/v4"
-	"github.com/snowfork/go-substrate-rpc-client/v4/config"
 	"github.com/snowfork/go-substrate-rpc-client/v4/types"
 	"github.com/stretchr/testify/assert"
 )
@@ -33,8 +31,7 @@ func TestChain_SubscribeBeefyJustifications(t *testing.T) {
 		t.Skip("skipping end-to-end test in short mode.")
 	}
 
-	api, err := gsrpc.NewSubstrateAPI(config.Default().RPCURL)
-	assert.NoError(t, err)
+	api := subscriptionsAPI
 
 	ch := make(chan interface{})
 	sub, err := api.Client.Subscribe(context.Background(), "beefy", "subscribeJustifications", "unsubscribeJustifications", "justifications", ch)
@@ -45,7 +42,7 @@ func TestChain_SubscribeBeefyJustifications(t *testing.T) {
 	assert.NoError(t, err)
 	defer sub.Unsubscribe()
 
-	timeout := time.After(40 * time.Second)
+	timeout := time.After(300 * time.Second)
 	received := 0
 
 	for {
