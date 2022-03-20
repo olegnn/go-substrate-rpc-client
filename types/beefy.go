@@ -109,7 +109,7 @@ func (s *SignedCommitment) Decode(decoder scale.Decoder) error {
 
 	for _, block := range compact.SignaturesFrom {
 		for bit := 0; bit < containerBitSize; bit++ {
-			bits = append(bits, (block >> (containerBitSize - bit - 1)) & 1)
+			bits = append(bits, (block>>(containerBitSize-bit-1))&1)
 		}
 	}
 
@@ -169,7 +169,6 @@ func (s SignedCommitment) Encode(encoder scale.Encoder) error {
 	compact.SignaturesFrom = signaturesFrom
 	compact.ValidatorSetLen = U32(validatorSetLen)
 
-
 	return encoder.Encode(compact)
 }
 
@@ -189,4 +188,3 @@ func makeChunks(slice []byte, chunkSize int) [][]byte {
 
 	return chunks
 }
-

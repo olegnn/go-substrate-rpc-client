@@ -32,13 +32,13 @@ func makeCommitment() (*types.Commitment, error) {
 	}
 
 	payloadItem := types.PayloadItem{
-		ID: [2]byte{'m', 'h'},
+		ID:   [2]byte{'m', 'h'},
 		Data: data,
 	}
 
-	commitment := types.Commitment {
-		Payload: []types.PayloadItem{payloadItem},
-		BlockNumber: 5,
+	commitment := types.Commitment{
+		Payload:        []types.PayloadItem{payloadItem},
+		BlockNumber:    5,
 		ValidatorSetID: 0,
 	}
 
@@ -60,7 +60,7 @@ func TestCommitment_Decode(t *testing.T) {
 
 	assertDecode(t, []decodingAssert{
 		{
-			input: types.MustHexDecodeString("0x046d68343048656c6c6f20576f726c6421050000000000000000000000"),
+			input:    types.MustHexDecodeString("0x046d68343048656c6c6f20576f726c6421050000000000000000000000"),
 			expected: *c,
 		},
 	})
@@ -89,7 +89,7 @@ func TestSignedCommitment_Decode(t *testing.T) {
 
 	assertDecode(t, []decodingAssert{
 		{
-			input: types.MustHexDecodeString("0x046d68343048656c6c6f20576f726c642105000000000000000000000004300400000008558455ad81279df0795cc985580e4fb75d72d948d1107b2ac80a09abed4da8480c746cc321f2319a5e99a830e314d10dd3cd68ce3dc0c33c86e99bcb7816f9ba012d6e1f8105c337a86cdd9aaacdc496577f3db8c55ef9e6fd48f2c5c05a2274707491635d8ba3df64f324575b7b2a34487bca2324b6a0046395a71681be3d0c2a00"),
+			input:    types.MustHexDecodeString("0x046d68343048656c6c6f20576f726c642105000000000000000000000004300400000008558455ad81279df0795cc985580e4fb75d72d948d1107b2ac80a09abed4da8480c746cc321f2319a5e99a830e314d10dd3cd68ce3dc0c33c86e99bcb7816f9ba012d6e1f8105c337a86cdd9aaacdc496577f3db8c55ef9e6fd48f2c5c05a2274707491635d8ba3df64f324575b7b2a34487bca2324b6a0046395a71681be3d0c2a00"),
 			expected: s,
 		},
 	})
@@ -111,5 +111,3 @@ func TestSignedCommitment_EncodeDecode(t *testing.T) {
 
 	assertRoundtrip(t, s)
 }
-
-
