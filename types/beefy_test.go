@@ -105,7 +105,13 @@ func TestSignedCommitment_EncodeDecode(t *testing.T) {
 			types.NewOptionBeefySignatureEmpty(),
 			types.NewOptionBeefySignatureEmpty(),
 			types.NewOptionBeefySignature(sig1),
-			types.NewOptionBeefySignature(sig2),
+			types.NewOptionBeefySignature(sig1),
+			types.NewOptionBeefySignatureEmpty(),
+			types.NewOptionBeefySignatureEmpty(),
+			types.NewOptionBeefySignatureEmpty(),
+			types.NewOptionBeefySignatureEmpty(),
+			types.NewOptionBeefySignatureEmpty(),
+			types.NewOptionBeefySignature(sig1),
 		},
 	}
 
