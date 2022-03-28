@@ -25,8 +25,8 @@ import (
 	"github.com/snowfork/go-substrate-rpc-client/v4/types"
 )
 
-// NewJustificationsSubscription is a subscription established through one of the Client's subscribe methods.
-type NewJustificationsSubscription struct {
+// JustificationsSubscription is a subscription established through one of the Client's subscribe methods.
+type JustificationsSubscription struct {
 	sub      *gethrpc.ClientSubscription
 	channel  chan types.SignedCommitment
 	quitOnce sync.Once // ensures quit is closed once
@@ -35,7 +35,7 @@ type NewJustificationsSubscription struct {
 // Chan returns the subscription channel.
 //
 // The channel is closed when Unsubscribe is called on the subscription.
-func (s *NewJustificationsSubscription) Chan() <-chan types.SignedCommitment {
+func (s *JustificationsSubscription) Chan() <-chan types.SignedCommitment {
 	return s.channel
 }
 
@@ -47,13 +47,13 @@ func (s *NewJustificationsSubscription) Chan() <-chan types.SignedCommitment {
 // on the underlying client and no other error has occurred.
 //
 // The error channel is closed when Unsubscribe is called on the subscription.
-func (s *NewJustificationsSubscription) Err() <-chan error {
+func (s *JustificationsSubscription) Err() <-chan error {
 	return s.sub.Err()
 }
 
 // Unsubscribe unsubscribes the notification and closes the error channel.
 // It can safely be called more than once.
-func (s *NewJustificationsSubscription) Unsubscribe() {
+func (s *JustificationsSubscription) Unsubscribe() {
 	s.sub.Unsubscribe()
 	s.quitOnce.Do(func() {
 		close(s.channel)
@@ -62,7 +62,7 @@ func (s *NewJustificationsSubscription) Unsubscribe() {
 
 // SubscribeJustifications subscribes beefy justifications, returning a subscription that will
 // receive server notifications containing the Header.
-func (c *Beefy) SubscribeJustifications() (*NewJustificationsSubscription, error) {
+func (c *Beefy) SubscribeJustifications() (*JustificationsSubscription, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), config.Default().SubscribeTimeout)
 	defer cancel()
 
@@ -73,5 +73,5 @@ func (c *Beefy) SubscribeJustifications() (*NewJustificationsSubscription, error
 		return nil, err
 	}
 
-	return &NewJustificationsSubscription{sub: sub, channel: ch}, nil
+	return &JustificationsSubscription{sub: sub, channel: ch}, nil
 }
