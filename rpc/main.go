@@ -19,6 +19,7 @@ package rpc
 import (
 	"github.com/snowfork/go-substrate-rpc-client/v4/client"
 	"github.com/snowfork/go-substrate-rpc-client/v4/rpc/author"
+	"github.com/snowfork/go-substrate-rpc-client/v4/rpc/beefy"
 	"github.com/snowfork/go-substrate-rpc-client/v4/rpc/chain"
 	"github.com/snowfork/go-substrate-rpc-client/v4/rpc/mmr"
 	"github.com/snowfork/go-substrate-rpc-client/v4/rpc/offchain"
@@ -29,6 +30,7 @@ import (
 
 type RPC struct {
 	Author   *author.Author
+	Beefy    *beefy.Beefy
 	Chain    *chain.Chain
 	MMR      *mmr.MMR
 	Offchain *offchain.Offchain
@@ -49,6 +51,7 @@ func NewRPC(cl client.Client) (*RPC, error) {
 
 	return &RPC{
 		Author:   author.NewAuthor(cl),
+		Beefy:    beefy.NewBeefy(cl),
 		Chain:    chain.NewChain(cl),
 		MMR:      mmr.NewMMR(cl),
 		Offchain: offchain.NewOffchain(cl),

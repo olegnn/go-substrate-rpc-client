@@ -1,6 +1,7 @@
 package types_test
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/snowfork/go-substrate-rpc-client/v4/types"
@@ -45,13 +46,36 @@ func makeCommitment() (*types.Commitment, error) {
 	return &commitment, nil
 }
 
+func makeLargeCommitment() (*types.Commitment, error) {
+	data := types.MustHexDecodeString("0xb5bb9d8014a0f9b1d61e21e796d78dccdf1352f23cd32812f4850b878ae4944c")
+
+	payloadItem := types.PayloadItem{
+		ID:   [2]byte{'m', 'h'},
+		Data: data,
+	}
+
+	commitment := types.Commitment{
+		Payload:        []types.PayloadItem{payloadItem},
+		BlockNumber:    5,
+		ValidatorSetID: 3,
+	}
+
+	return &commitment, nil
+}
+
 func TestCommitment_Encode(t *testing.T) {
 	c, err := makeCommitment()
 	assert.NoError(t, err)
-
 	assertEncode(t, []encodingAssert{
 		{c, types.MustHexDecodeString("0x046d68343048656c6c6f20576f726c6421050000000000000000000000")},
 	})
+}
+
+func TestLargeCommitment_Encode(t *testing.T) {
+	c, err := makeLargeCommitment()
+	assert.NoError(t, err)
+	fmt.Println(len(c.Payload[0].Data))
+	fmt.Println(types.EncodeToHexString(c))
 }
 
 func TestCommitment_Decode(t *testing.T) {
