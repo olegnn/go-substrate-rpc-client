@@ -26,7 +26,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestBeefy_SubscribeBeefyJustifications(t *testing.T) {
+func TestBeefy_SubscribeJustifications(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping end-to-end test in short mode.")
 	}
@@ -38,7 +38,7 @@ func TestBeefy_SubscribeBeefyJustifications(t *testing.T) {
 	assert.NoError(t, err)
 	defer sub.Unsubscribe()
 
-	timeout := time.After(900 * time.Second)
+	timeout := time.After(300 * time.Second)
 	received := 0
 
 	for {
