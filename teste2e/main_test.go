@@ -18,7 +18,6 @@ package teste2e
 
 import (
 	"fmt"
-	"os"
 	"testing"
 
 	gsrpc "github.com/snowfork/go-substrate-rpc-client/v4"
@@ -34,10 +33,9 @@ import (
 var subscriptionsAPI *gsrpc.SubstrateAPI
 
 func TestMain(m *testing.M) {
-	localAPI, err := gsrpc.NewSubstrateAPI(config.Default().RPCURL)
-	subscriptionsAPI = localAPI
+	localApi, err := gsrpc.NewSubstrateAPI(config.Default().RPCURL)
+	subscriptionsAPI = localApi
 	assert.NoError(&testing.T{}, err)
-	os.Exit(m.Run())
 }
 
 func TestEnd2end(t *testing.T) {
