@@ -68,7 +68,8 @@ func (b *Beefy) SubscribeJustifications() (*JustificationsSubscription, error) {
 
 	ch := make(chan types.SignedCommitment)
 
-	sub, err := b.client.Subscribe(ctx, "beefy", "subscribeJustifications", "unsubscribeJustifications", "justifications", ch)
+	sub, err := b.client.Subscribe(ctx, "beefy", "subscribeJustifications", "unsubscribeJustifications",
+		"justifications", ch)
 	if err != nil {
 		return nil, err
 	}
