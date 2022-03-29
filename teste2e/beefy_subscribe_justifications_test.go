@@ -17,18 +17,16 @@
 package teste2e
 
 import (
-	"context"
 	"fmt"
 	"testing"
 	"time"
 
 	gsrpc "github.com/snowfork/go-substrate-rpc-client/v4"
 	"github.com/snowfork/go-substrate-rpc-client/v4/config"
-	"github.com/snowfork/go-substrate-rpc-client/v4/types"
 	"github.com/stretchr/testify/assert"
 )
 
-func TestChain_SubscribeBeefyJustifications(t *testing.T) {
+func TestBeefy_SubscribeJustifications(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping end-to-end test in short mode.")
 	}
@@ -36,29 +34,17 @@ func TestChain_SubscribeBeefyJustifications(t *testing.T) {
 	api, err := gsrpc.NewSubstrateAPI(config.Default().RPCURL)
 	assert.NoError(t, err)
 
-	ch := make(chan interface{})
-	sub, err := api.Client.Subscribe(context.Background(), "beefy", "subscribeJustifications", "unsubscribeJustifications", "justifications", ch)
-	if err != nil && err.Error() == "Method not found" {
-		t.Skip("skipping since beefy module is not available")
-	}
-
+	sub, err := api.RPC.Beefy.SubscribeJustifications()
 	assert.NoError(t, err)
 	defer sub.Unsubscribe()
 
-	timeout := time.After(40 * time.Second)
+	timeout := time.After(300 * time.Second)
 	received := 0
 
 	for {
 		select {
-		case msg := <-ch:
-			fmt.Printf("encoded msg: %#v\n", msg)
-
-			s := &types.SignedCommitment{}
-			err := types.DecodeFromHexString(msg.(string), s)
-			if err != nil {
-				panic(err)
-			}
-			fmt.Printf("decoded msg: %#v\n", s)
+		case commitment := <-sub.Chan():
+			fmt.Printf("%#v\n", commitment)
 
 			received++
 
