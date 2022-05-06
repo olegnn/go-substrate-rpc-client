@@ -71,11 +71,10 @@ type MMRProof struct {
 }
 
 type MMRLeaf struct {
-	Version               MMRLeafVersion
-	ParentNumberAndHash   ParentNumberAndHash
-	BeefyNextAuthoritySet BeefyNextAuthoritySet
-	ParachainHeads        H256
-	MessageCommitmentRoot H256
+	Version                MMRLeafVersion
+	ParentNumberAndHash    ParentNumberAndHash
+	BeefyNextAuthoritySet  BeefyNextAuthoritySet
+	MessageCommitmentsRoot H256
 }
 
 type MMRLeafVersion U8
