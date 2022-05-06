@@ -17,8 +17,8 @@
 package state
 
 import (
-	"github.com/snowfork/go-substrate-rpc-client/v4/client"
-	"github.com/snowfork/go-substrate-rpc-client/v4/types"
+	"github.com/olegnn/go-substrate-rpc-client/v4/client"
+	"github.com/olegnn/go-substrate-rpc-client/v4/types"
 )
 
 // GetStorage retreives the stored data and decodes them into the provided interface. Ok is true if the value is not

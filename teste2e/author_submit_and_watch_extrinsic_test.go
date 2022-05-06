@@ -21,9 +21,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/snowfork/go-substrate-rpc-client/v4/rpc/author"
-	"github.com/snowfork/go-substrate-rpc-client/v4/signature"
-	"github.com/snowfork/go-substrate-rpc-client/v4/types"
+	"github.com/olegnn/go-substrate-rpc-client/v4/rpc/author"
+	"github.com/olegnn/go-substrate-rpc-client/v4/signature"
+	"github.com/olegnn/go-substrate-rpc-client/v4/types"
 	"github.com/stretchr/testify/assert"
 )
 

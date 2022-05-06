@@ -22,10 +22,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/snowfork/go-substrate-rpc-client/v4/hash"
-	"github.com/snowfork/go-substrate-rpc-client/v4/xxhash"
+	"github.com/olegnn/go-substrate-rpc-client/v4/hash"
+	"github.com/olegnn/go-substrate-rpc-client/v4/xxhash"
 
-	. "github.com/snowfork/go-substrate-rpc-client/v4/types"
+	. "github.com/olegnn/go-substrate-rpc-client/v4/types"
 	"github.com/stretchr/testify/assert"
 )
 

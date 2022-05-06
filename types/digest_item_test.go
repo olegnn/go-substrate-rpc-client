@@ -17,8 +17,9 @@
 package types_test
 
 import (
-	. "github.com/snowfork/go-substrate-rpc-client/v4/types"
 	"testing"
+
+	. "github.com/olegnn/go-substrate-rpc-client/v4/types"
 )
 
 var testDigestItem1 = DigestItem{IsOther: true, AsOther: NewBytes([]byte{0xab})}

@@ -21,7 +21,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	. "github.com/snowfork/go-substrate-rpc-client/v4/types"
+	. "github.com/olegnn/go-substrate-rpc-client/v4/types"
 )
 
 var exampleMetadataV7 = Metadata{

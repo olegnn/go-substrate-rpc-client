@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/snowfork/go-substrate-rpc-client/v4/scale"
+	"github.com/olegnn/go-substrate-rpc-client/v4/scale"
 )
 
 // I8 is a signed 8-bit integer
