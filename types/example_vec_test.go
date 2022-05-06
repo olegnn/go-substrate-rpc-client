@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"reflect"
 
-	. "github.com/snowfork/go-substrate-rpc-client/v4/types"
+	. "github.com/olegnn/go-substrate-rpc-client/v4/types"
 )
 
 func ExampleExampleVec_simple() {

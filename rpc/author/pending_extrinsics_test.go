@@ -20,8 +20,8 @@ import (
 	"fmt"
 	"testing"
 
-	gsrpc "github.com/snowfork/go-substrate-rpc-client/v4"
-	"github.com/snowfork/go-substrate-rpc-client/v4/config"
+	gsrpc "github.com/olegnn/go-substrate-rpc-client/v4"
+	"github.com/olegnn/go-substrate-rpc-client/v4/config"
 	"github.com/stretchr/testify/assert"
 )
 

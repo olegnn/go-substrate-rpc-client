@@ -17,7 +17,7 @@
 package beefy
 
 import (
-	"github.com/snowfork/go-substrate-rpc-client/v4/client"
+	"github.com/olegnn/go-substrate-rpc-client/v4/client"
 )
 
 // Beefy exposes methods for retrieval of chain data

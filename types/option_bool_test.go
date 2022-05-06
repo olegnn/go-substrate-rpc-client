@@ -21,7 +21,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	. "github.com/snowfork/go-substrate-rpc-client/v4/types"
+	. "github.com/olegnn/go-substrate-rpc-client/v4/types"
 )
 
 func TestOptionBool_EncodeDecode(t *testing.T) {

@@ -3,7 +3,7 @@ package offchain
 import (
 	"fmt"
 
-	"github.com/snowfork/go-substrate-rpc-client/v4/types"
+	"github.com/olegnn/go-substrate-rpc-client/v4/types"
 )
 
 // StorageKind ...

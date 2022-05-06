@@ -4,8 +4,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/snowfork/go-substrate-rpc-client/v4/client"
-	"github.com/snowfork/go-substrate-rpc-client/v4/config"
+	"github.com/olegnn/go-substrate-rpc-client/v4/client"
+	"github.com/olegnn/go-substrate-rpc-client/v4/config"
 )
 
 var offchain *Offchain

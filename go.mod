@@ -1,4 +1,4 @@
-module github.com/snowfork/go-substrate-rpc-client/v4
+module github.com/olegnn/go-substrate-rpc-client/v4
 
 go 1.17
 

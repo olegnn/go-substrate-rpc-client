@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/snowfork/go-substrate-rpc-client/v4/types"
+	"github.com/olegnn/go-substrate-rpc-client/v4/types"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -146,13 +146,13 @@ func TestSignedCommitment_EncodeDecode(t *testing.T) {
 func TestOptionBeefySignature_Marshal(t *testing.T) {
 	actual, err := json.Marshal(types.NewOptionBeefySignature(sig1))
 	assert.NoError(t, err)
-	expected , err := json.Marshal(sig1)
+	expected, err := json.Marshal(sig1)
 	assert.NoError(t, err)
 	assert.Equal(t, actual, expected)
 
 	actual, err = json.Marshal(types.NewOptionBeefySignatureEmpty())
 	assert.NoError(t, err)
-	expected , err = json.Marshal(nil)
+	expected, err = json.Marshal(nil)
 	assert.NoError(t, err)
 	assert.Equal(t, actual, expected)
 }

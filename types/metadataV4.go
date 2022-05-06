@@ -22,8 +22,8 @@ import (
 	"hash"
 	"strings"
 
-	"github.com/snowfork/go-substrate-rpc-client/v4/scale"
-	"github.com/snowfork/go-substrate-rpc-client/v4/xxhash"
+	"github.com/olegnn/go-substrate-rpc-client/v4/scale"
+	"github.com/olegnn/go-substrate-rpc-client/v4/xxhash"
 	"golang.org/x/crypto/blake2b"
 )
 

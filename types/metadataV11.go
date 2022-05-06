@@ -1,6 +1,6 @@
 package types
 
-import "github.com/snowfork/go-substrate-rpc-client/v4/scale"
+import "github.com/olegnn/go-substrate-rpc-client/v4/scale"
 
 // Modelled after packages/types/src/Metadata/v10/toV11.ts
 type MetadataV11 struct {

@@ -20,8 +20,8 @@ import (
 	"fmt"
 	"hash"
 
-	"github.com/snowfork/go-substrate-rpc-client/v4/scale"
-	"github.com/snowfork/go-substrate-rpc-client/v4/xxhash"
+	"github.com/olegnn/go-substrate-rpc-client/v4/scale"
+	"github.com/olegnn/go-substrate-rpc-client/v4/xxhash"
 )
 
 const MagicNumber uint32 = 0x6174656d
